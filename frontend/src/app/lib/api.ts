@@ -14,38 +14,43 @@ export async function uploadPdf(file: File): Promise<UploadResponse> {
   return { message: 'Upload received. Processing will start shortly.', jobId };
 }
 
-// ------- NEW: mock summary API --------
+// ------- NEW: Mock summary + flashcards APIs --------
 
 export type SummaryResponse = {
   summaryPoints: string[];
-  flashcards: { q: string; a: string }[];
   qa: { q: string; a: string }[];
 };
 
-export async function getSummary(jobId: string): Promise<SummaryResponse> {
-  // Simulate processing time
-  await new Promise((r) => setTimeout(r, 900));
+export type FlashcardResponse = {
+  flashcards: { q: string; a: string }[];
+};
 
-  // Return deterministic-ish mock content
+export async function getSummary(jobId: string): Promise<SummaryResponse> {
+  await new Promise((r) => setTimeout(r, 900));
   return {
     summaryPoints: [
-      'Key concept 1 explained with a concise takeaway.',
-      'Important definition and its practical implication.',
-      'Process / workflow summarized in 3–4 steps.',
-      'Limitations and common pitfalls to watch out for.',
-      'Final recommendation / rule of thumb.',
-    ],
-    flashcards: [
-      { q: 'What is the main idea?', a: 'A short sentence capturing the central concept.' },
-      { q: 'Define Term A.', a: 'A crisp definition that is test-friendly.' },
-      { q: 'List two advantages of Method X.', a: '1) Advantage one  2) Advantage two' },
-      { q: 'When should you avoid Technique Y?', a: 'In scenarios A/B due to constraint C.' },
-      { q: 'What are the typical steps?', a: 'Step 1 → Step 2 → Step 3 (briefly).' },
+      'Key concept explained concisely.',
+      'Definition of the core idea.',
+      'Process/workflow in 3 steps.',
+      'Common limitations or pitfalls.',
+      'Rule of thumb / best practice.',
     ],
     qa: [
-      { q: 'How does Concept A relate to B?', a: 'A influences B via mechanism M.' },
-      { q: 'Why is Limitation L significant?', a: 'It affects accuracy and generalization.' },
-      { q: 'What data is ideal?', a: 'Clean, representative, and well-labeled data.' },
+      { q: 'How does Concept A work?', a: 'It interacts with B via mechanism M.' },
+      { q: 'What’s a limitation?', a: 'Constraint L reduces accuracy.' },
+    ],
+  };
+}
+
+export async function getFlashcards(jobId: string): Promise<FlashcardResponse> {
+  await new Promise((r) => setTimeout(r, 900));
+  return {
+    flashcards: [
+      { q: 'What is the main idea?', a: 'A concise central concept.' },
+      { q: 'Define Term A.', a: 'A crisp definition.' },
+      { q: 'List two advantages of Method X.', a: '1) Advantage one  2) Advantage two' },
+      { q: 'When avoid Technique Y?', a: 'In scenario Z due to limitation L.' },
+      { q: 'Steps involved?', a: 'Step 1 → Step 2 → Step 3.' },
     ],
   };
 }
