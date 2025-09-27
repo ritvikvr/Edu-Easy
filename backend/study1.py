@@ -79,7 +79,7 @@ def search_bm25(query, chunks, k=5):
     return []
 
 with open(".env", "w") as f:
-    f.write("GOOGLE_API_KEY=AIzaSyCoa772_NIMHiGY8mW5jNTwiN6wSGI3-ck")
+    f.write("GOOGLE_API_KEY=GOOGLE_API_KEY")
 
 from dotenv import load_dotenv
 import os
